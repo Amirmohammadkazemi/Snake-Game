@@ -1,5 +1,7 @@
 #include<iostream>
 #include<conio.h>
+#include<windows.h>
+
 using namespace std;
 int width=100; //arz
 int length=20; //tool
@@ -12,6 +14,7 @@ m_new dir;
 
 /* Ground function */
 void ground(){
+	system("cls");
     //print top of ground
     for(int k=0;k<width;k++){
         cout<<"#";
@@ -20,7 +23,7 @@ void ground(){
     //print left & right of ground
     for(int i=0;i<length;i++){
 	    	for(int j=0;j<width;j++){
-	    		if(j==0 || j==width-1){
+	    		if(j==0 || j==width-2){
     		    cout<<"#";
 			}
 			if(i==x && j==y){
@@ -38,7 +41,7 @@ void ground(){
     }
     
 }
-
+/* Move function */
 void move(){
 	if(_kbhit()){
 		switch (_getch()){
@@ -62,26 +65,38 @@ void move(){
 switch (dir)
 {
 case Up:
-    y++;
+    x--;
 	break;
 
 case Down:
-    y--;
+    x++;
 	break;
 
 case Left:
-    x--;
+    y--;
 	break;
 	
 case Right:
-    x++;
-	break;			
+    y++;
+	break;
+
+default:
+    break;				
 }	
+}
+
+void sleep(int sleep){
+	Sleep(sleep);
 }
 
 /* Main function */
 int main(int argc, char** argv){
+	while (true)
+	{
 	ground();
 	move();
+	sleep(100);
+	}
+	
     return 0;
 }
