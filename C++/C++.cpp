@@ -3,9 +3,11 @@
 #include<windows.h>
 
 using namespace std;
-int width=100; //arz
+int width=40; //arz
 int length=20; //tool
 int x=length/2,y=width/2;
+bool gamestatus;
+
 
 enum m_new{
 	stop=0,Left,Right,Up,Down
@@ -85,17 +87,39 @@ default:
 }	
 }
 
+void control_m(){
+	/* If head of snake = length or width, game will be end.
+	if(x>length || x<-1 || y>width-2 || y<0){
+		gamestatus=true;
+	}*/
+	
+	if(x==width+1){
+		x=0;
+	}
+	else if(x==-1){
+		x=width+1;
+	}
+	else if(y==length-2){
+		y=0;
+	}
+	else if(y==0){
+		y=length-2;
+	}
+}
+
 void sleep(int sleep){
 	Sleep(sleep);
 }
 
 /* Main function */
 int main(int argc, char** argv){
-	while (true)
+	while (gamestatus)
 	{
 	ground();
 	move();
 	sleep(100);
+	control_m();
+	cout<<"x:"<<x<<" y:"<<y;
 	}
 	
     return 0;
