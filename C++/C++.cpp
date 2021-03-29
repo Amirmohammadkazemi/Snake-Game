@@ -6,7 +6,7 @@ using namespace std;
 int width=40; //arz
 int length=20; //tool
 int x=length/2,y=width/2;
-bool gamestatus;
+bool gamestatus=false;
 
 
 enum m_new{
