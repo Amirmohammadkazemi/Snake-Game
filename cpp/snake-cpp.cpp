@@ -4,10 +4,12 @@
 //namespaces
 using namespace std;
 
+//variable
+int w = 60; //width of map
+int l = 20; //length of map
+
 //pulling the ground
-void ground() {
-	int l = 20;
-	int w = 40;
+void map() {
 
 	//top of ground
 	for(int i=0; i<w; i++) {
@@ -36,7 +38,7 @@ void ground() {
 //start function
 int main(int argc, char ** argv) {
 
-	ground();
+	map();
 
 
 	return 0;
