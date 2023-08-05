@@ -11,6 +11,7 @@ using namespace std;
 int w = 60; //width of map
 int l = 20; //length of map
 
+bool gameOver = false;
 //The coordinates of the snake's head
 int x = w/2;
 int y = l/2;
@@ -24,7 +25,7 @@ mNew dir;
 //pulling the ground
 void map() {
 	system("clear"); //clear consol
-
+	
 	//top of ground
 	for(int i=0; i<w; i++) {
 		cout << "#";
@@ -53,6 +54,8 @@ void map() {
 
 //move function
 void move() {
+	cout<<x<<" "<<y;
+
 	if(_kbhit()) {
 		switch(getch()){
 			case 'w':
@@ -69,6 +72,7 @@ void move() {
 				break;
 		}
 	}
+
 	switch(dir) {
 		case UP:
 			y--;
@@ -85,6 +89,20 @@ void move() {
 		default:
 			break;
 	}
+
+	//Loss in case of collision with edges
+	//if(x>w-1 || x==-1 || y>l || y==-2)
+	//	gameOver = true;
+	
+	if(x>w-3) //if it exits from the right, it enters from the left
+		x = 0;
+	else if(x==-1) //if it exits from the left, it enters from the right
+		x = w-3;
+	else if(y>l-1) //if it exits from the bottom, it enters from the top
+		y = 0;
+	else if(y==-2) //if it exits from the bottom, it enters from the bottom
+		y = l-1;
+
 }
 
 //
@@ -96,7 +114,7 @@ void Sleep(int speed) {
 //start function
 int main(int argc, char ** argv) {
 
-	while(true) {
+	while(!gameOver) {
 		map();
 		move();
 		Sleep(1);
