@@ -16,6 +16,10 @@ bool gameOver = false;
 int x = w/2;
 int y = l/2;
 
+//make random fruit x y
+int fruit_x = rand() % 58;
+int fruit_y = rand() % 18;
+
 enum mNew {
 	stop=0, RIGHT, LEFT, UP, DOWN
 };
@@ -39,6 +43,8 @@ void map() {
 				cout << "#";
 			if(i==y && j==x)
 				cout << "O";
+			else if(j==fruit_x && i==fruit_y) //draw random fruit
+				cout << "F";
 			else
 				cout << " ";
 		}
@@ -111,12 +117,21 @@ void Sleep(int speed) {
 	usleep(100000);
 }
 
+//fruit
+void fruit() {
+	if(x==fruit_x && y==fruit_y) {
+		fruit_x = rand() % 58;
+		fruit_y = rand() % 18;	
+	}
+}
+
 //start function
 int main(int argc, char ** argv) {
 
 	while(!gameOver) {
 		map();
 		move();
+		fruit();
 		Sleep(1);
 	}
 
