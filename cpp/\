@@ -12,7 +12,7 @@ int w = 60; //width of map
 int l = 20; //length of map
 int rowX[100];
 int rowY[100];
-int adding = 2;
+int adding = 100;
 
 bool gameOver = false;
 //The coordinates of the snake's head
@@ -36,13 +36,11 @@ void snakeBody() {
 	int _rowX = rowX[0];
 	int _rowY = rowY[0];
 	
-	for(int i=0; i<adding; i++) {
-		int longX = rowX[i]; //x of snake body length
-		int longY = rowY[i]; //y of snake body length
+	for(int i=1; i<adding; i++) {
+		int longx = rowX[i]; //x of snake body length
+		int longy = rowY[i]; //y of snake body length
 		rowX[i] = _rowX;
 		rowY[i] = _rowY;
-		_rowX = longX;
-		_rowY = longY;
 	}
 }
 
@@ -89,6 +87,7 @@ void map() {
 
 //move function
 void move() {
+	cout<<x<<" "<<y;
 
 	if(_kbhit()) {
 		switch(getch()){
@@ -128,13 +127,6 @@ void move() {
 	//if(x>w-1 || x==-1 || y>l || y==-2)
 	//	gameOver = true;
 	
-	//loss in case of body collision
-	//for(int i=0; i<adding; i++) {
-	//	if(rowX[i]==x && rowY[i]==y) {
-	//		gameOver = true;
-	//	}
-	//}
-
 	if(x>w-3) //if it exits from the right, it enters from the left
 		x = 0;
 	else if(x==-1) //if it exits from the left, it enters from the right
@@ -154,20 +146,18 @@ void Sleep(int speed) {
 
 //fruit
 void fruit() {
-		if(x==fruit_x && y==fruit_y) {
+	if(x==fruit_x && y==fruit_y) {
 		fruit_x = rand() % 58;
 		fruit_y = rand() % 18;	
-		adding++;
 	}
 }
 
 //start function
 int main(int argc, char ** argv) {
 
-	 while(!gameOver) {
-	 	map();
+	while(!gameOver) {
+		map();
 		move();
-		cout << "Score: "<< adding-2 << endl;
 		fruit();
 		snakeBody();
 		Sleep(1);
